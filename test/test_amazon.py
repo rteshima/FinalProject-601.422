@@ -9,3 +9,6 @@ class AmazonTestCase(unittest.TestCase):
     # again, use this format
     def test_amazon_function_number_1(self):
         pass
+
+if __name__ == '__main__':
+    unittest.main()
