@@ -1,4 +1,7 @@
-import stores.amazon as amazon
+import sys
+sys.path.insert(0, '../stores/')
+print(sys.path)
+import amazon
 import unittest
 
 class AmazonTestCase(unittest.TestCase):
