@@ -1,0 +1,90 @@
+Methods:
+
+run(self, delay=default_refresh_delay, test=false)
+
+fail_to_checkout_note(self)
+
+handle_startup(self)
+
+is_logged_in(self)
+
+login(self)
+
+run_asins(self, delay)
+
+check_stock(self, asian, reserve_min, reserve_max, retry=0)
+
+attempt_atc(self, offering_id, max_atc_retries=DEFAULT_MAX_ATC_TRIES)
+
+remove_asin_list(self, asian)
+
+navigate_pages(self, test)
+
+handle_unknown_title(self, title)
+
+handle_shipping_page(self)
+
+get_amazon_element(self, key)
+
+get_cart_count(self)
+
+handle_prime_signup(self)
+
+do_button_click(self, button, clicking_text_, clicked_text, fail_text, log_debug)
+
+handle_home_page(self)
+
+handle_cart(self)
+
+handle_checkout(self, test)
+
+handle_order_complete(self):
+
+    def handle_doggos(self):
+
+    def handle_out_of_stock(self):
+
+    def handle_captcha(self, check_presence=True):
+
+    def handle_business_po(self):
+
+    def save_screenshot(self, page):
+
+    def save_page_source(self, page):
+
+    def wait_for_page_content_change(self, timeout=5):
+
+    def wait_for_page_change(self, page_title, timeout=3):
+
+    def page_wait_delay(self):
+
+    def send_notification(self, message, page_name, take_screenshot=True):
+
+    def get_timeout(self, timeout=DEFAULT_MAX_TIMEOUT):
+
+    def get_webdriver_pids(self):
+
+    def get_page(self, url):
+
+    def show_config(self):
+
+    def create_driver(self, path_to_profile):
+
+    def delete_driver(self):
+
+def get_timestamp_filename(name, extension):
+
+def get_shipping_costs(tree, free_shipping_string):
+
+def get_alt_shipping_costs(tree, free_shipping_string) -> Price:
+
+AmazonItemCondition CLASS
+
+def get_item_condition(form_action) -> AmazonItemCondition:
+
+def wait_for_element_by_xpath(d, xpath, timeout=10):
+
+def join_xpaths(xpath_list, separator=" | "):
+
+
+
