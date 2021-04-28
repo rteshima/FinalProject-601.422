@@ -1,7 +1,4 @@
-import sys
-sys.path.insert(0, '../stores/')
-print(sys.path)
-import amazon
+from stores import amazon
 import unittest
 
 class AmazonTestCase(unittest.TestCase):
@@ -11,7 +8,7 @@ class AmazonTestCase(unittest.TestCase):
 
     # again, use this format
     def test_amazon_function_number_1(self):
-        pass
+        self.assertEqual(2, 2)
 
 if __name__ == '__main__':
     unittest.main()
