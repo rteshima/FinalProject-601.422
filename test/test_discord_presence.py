@@ -1,4 +1,5 @@
 import unittest
+import utils.discord_presence as discord
 
 class DiscordPresenceTestCase(unittest.TestCase):
     
@@ -7,5 +8,6 @@ class DiscordPresenceTestCase(unittest.TestCase):
         pass
     
     # Follow this format for writing our future test cases
-    def test_function_number_1(self):
-        pass
+    def test_start_presence(self):
+        self.assertEqual(True, discord.connected)
+        discord.start_presence()
