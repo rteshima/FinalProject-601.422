@@ -35,6 +35,5 @@ class AmazonTestCase(unittest.TestCase):
     #     self.am.asin_list = None
     #     self.am.run_asins(delay=1)
 
-    
 if __name__ == '__main__':
     unittest.main()
