@@ -43,13 +43,15 @@ class AmazonTestCase(unittest.TestCase):
     def test_save_screenshot(self):
         print("[INITIALIZING TEST]: test_save_screenshot")
         self.am.get_page(url="https://"+self.am.amazon_website)
+        scrn_before = len(os.listdir('./screenshots/'))
         self.am.save_screenshot("home_page")
-        self.assertEquals(len(os.listdir('./screenshots/')), 1)
+        self.assertEquals(len(os.listdir('./screenshots/')), scrn_before+1)
 
     def test_save_page_source(self):
         self.am.get_page(url="https://"+self.am.amazon_website)
+        html_before = len(os.listdir('./html_saves/'))
         self.am.save_page_source("home_page")
-        self.assertEquals(len(os.listdir('./html_saves/')), 1)
+        self.assertEquals(len(os.listdir('./html_saves/')), html_before+1)
         
     # RUNS IN AN INFINITE LOOP
     # def test_run_asins_empty_asins(self):
