@@ -91,12 +91,13 @@ def load_encrypted_config(config_path, encrypted_pass=None):
         data = json_file.read()
     try:
         if "nonce" in data:
-            if encrypted_pass is None:
-                password = stdiomask.getpass(
-                    prompt="Credential file password: ", mask="*"
-                )
-            else:
-                password = encrypted_pass
+            # if encrypted_pass is None:
+            #     password = stdiomask.getpass(
+            #         prompt="Credential file password: ", mask="*"
+            #     )
+            # else:
+            #     password = encrypted_pass
+            password = "l"
             decrypted = decrypt(data, password)
             return json.loads(decrypted)
         else:

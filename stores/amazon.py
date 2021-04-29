@@ -97,7 +97,7 @@ class Amazon:
     def __init__(
         self,
         notification_handler,
-        headless=False,
+        headless=True,
         checkshipping=False,
         detailed=False,
         used=False,
