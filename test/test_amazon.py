@@ -18,8 +18,9 @@ class AmazonTestCase(unittest.TestCase):
     def test_get_page(self):
         print("[INITIALIZING TEST]: test_get_page")
         self.am.get_page(url="https://"+self.am.amazon_website)
-        self.assertEquals(self.am.driver.current_url, "https://smile.amazon.com/")
+        self.assertEqual(self.am.driver.current_url, "https://smile.amazon.com/")
 
+    # # again, use this format
     # def test_amazon_NOT_logged_in(self):
     #     print("[INITIALIZING TEST]: test_amazon_NOT_logged_in")
     #     self.am.get_page(url="https://"+self.am.amazon_website)
@@ -42,19 +43,26 @@ class AmazonTestCase(unittest.TestCase):
     def test_save_screenshot(self):
         print("[INITIALIZING TEST]: test_save_screenshot")
         self.am.get_page(url="https://"+self.am.amazon_website)
+        scrn_before = len(os.listdir('./screenshots/'))
         self.am.save_screenshot("home_page")
-        self.assertEquals(len(os.listdir('./screenshots/')), 1)
+        self.assertEquals(len(os.listdir('./screenshots/')), scrn_before+1)
 
     def test_save_page_source(self):
         self.am.get_page(url="https://"+self.am.amazon_website)
+        html_before = len(os.listdir('./html_saves/'))
         self.am.save_page_source("home_page")
-        self.assertEquals(len(os.listdir('./html_saves/')), 1)
+        self.assertEquals(len(os.listdir('./html_saves/')), html_before+1)
         
     # RUNS IN AN INFINITE LOOP
     # def test_run_asins_empty_asins(self):
         # print("[INITIALIZING TEST]: test_run_asins_empty_asins")
     #     self.am.asin_list = None
     #     self.am.run_asins(delay=1)
+
+    # RUNS IN AN INFINITE LOOP, because use case never going to happen
+    # def test_handle_cart_empty(self):
+    #     self.am.get_page(url="https://smile.amazon.com/gp/cart/view.html?ref_=nav_cart")
+    #     self.am.handle_cart()
 
     def test_items_already_in_cart(self):
         print("[INITIALIZING TEST]: test_items_already_in_cart")
@@ -357,6 +365,36 @@ class AmazonTestCase(unittest.TestCase):
             self.am.navigate_pages(True)
         self.assertIn(
             "DEBUG:fairgame:'navigate_pages' returned None",
+            self.cm.output
+        )
+
+    def test_handle_business_po(self):
+        print("[INITIALIZING TEST]: test_handle_business_po")
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        with self.assertLogs(logger='fairgame', level='DEBUG') as self.cm:
+            self.am.handle_business_po()
+        
+        self.assertIn(
+            "INFO:fairgame:On Business PO Page, Trying to move on to checkout",
+            self.cm.output
+        )
+
+    def test_cart_count(self):
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        initial_cart = self.am.get_cart_count()
+        print("[INITIALIZING TEST]: test_cart_count")
+        test_offeringID = "RiIYaL1Mjc6UD55v0XDmYPqHO%2BzVhFJpPokoeoGeE1lO1FRbjUkHjEhT%2FevBwzpOANKChTvZnmKTsNsG5IMXE6sGF5r6fSvHnZXXbejw6udcdeeoV2GAJgufLzLEM%2F1Kb7zf%2FE62mb1EkhExQQ7bVw%3D%3D"
+        self.am.attempt_atc(test_offeringID)
+        self.assertEqual(initial_cart+1, self.am.get_cart_count())
+
+    def test_handle_home_page(self):
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        with self.assertLogs(logger='fairgame', level='DEBUG') as self.cm:
+            self.am.handle_home_page()
+
+        
+        self.assertIn(
+            "WARNING:fairgame:On home page, trying to get back to checkout",
             self.cm.output
         )
 
