@@ -36,8 +36,7 @@ class MockAmazonTestCase(unittest.TestCase):
             "INFO:fairgame:It's likely that the product went out of stock before FairGame could checkout.",
             self.cm.output
         )
-      
-       
+
 
 if __name__ == '__main__':
     unittest.main()
