@@ -4,12 +4,19 @@ Frameworks being used:
 Language: Python3
 Unit Testing Framework: unittest
 Code Coverage Framework: Coverage.py
-pipenv run python -m coverage run -m unittest discover
-This will run all of them, if you want to run a single file replace discover with the path to the file from the project level
-coverage report
-coverage html
-Mock Testing Framework: unittest.mock
+    pipenv run python -m coverage run -m unittest discover
+    This will run all of them, if you want to run a single file replace discover with the path to the file from the project level
+    coverage report. For example, to run test_amazon with coverage , use the following command: python3 -m coverage run -m unittest test/test_amazon.py 
+    Command to generate html report to see which lines are being covered: coverage html
+        The html report can be found in the folder htmlcov
+
 Mutation Testing Framework: PyMut
+    Instructions for mutation Testing:
+
+    Generate mutants:
+    mut.py --target stores/amazon.py --unit-test test/mock_amazon.py -m
+    Generate mutation report: 
+    mut.py --target stores/amazon.py --unit-test test/mock_amazon.py -m --report-html DIR_NAME
 
 Instructions for testing:
 Install packages using the following commands (while in top level project directory):
@@ -23,12 +30,6 @@ Re-run the tests, you will need to re-enter in your password for the credential 
 WARNING: you must wait until the chromedriver window closes on its own and for the next password prompt pops up or else you risk a collision of two threads accessing the encrypted password config file (amazon_config.json) at the same time
 SO either wait for the chrome window to close, or if the next password thread pops up before the chrome window closes, close the chrome window MANUALLY and then continue on typing your password
 
-Instructions for mutation Testing:
-
-Generate mutants:
-mut.py --target stores/amazon.py --unit-test test/mock_amazon.py -m
-Generate mutation report: 
-mut.py --target stores/amazon.py --unit-test test/mock_amazon.py -m --report-html DIR_NAME
 
 Limitations:
 We weren’t able to invest money into a subscription for an Amazon Prime account, so we made a free test account to work with. Because of this, we had to stop our tests at the enter address screen, as Fairgame is programmed to work with a default address. 
