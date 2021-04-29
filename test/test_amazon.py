@@ -18,44 +18,51 @@ class AmazonTestCase(unittest.TestCase):
     def test_get_page(self):
         print("[INITIALIZING TEST]: test_get_page")
         self.am.get_page(url="https://"+self.am.amazon_website)
-        self.assertEquals(self.am.driver.current_url, "https://smile.amazon.com/")
+        self.assertEqual(self.am.driver.current_url, "https://smile.amazon.com/")
 
-    # # again, use this format
-    # def test_amazon_NOT_logged_in(self):
-    #     print("[INITIALIZING TEST]: test_amazon_NOT_logged_in")
-    #     self.am.get_page(url="https://"+self.am.amazon_website)
-    #     time.sleep(2)
-    #     self.assertFalse(self.am.is_logged_in())
+    # again, use this format
+    def test_amazon_NOT_logged_in(self):
+        print("[INITIALIZING TEST]: test_amazon_NOT_logged_in")
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        time.sleep(2)
+        self.assertFalse(self.am.is_logged_in())
 
-    # def test_amazon_logged_in(self):
-    #     print("[INITIALIZING TEST]: test_amazon_logged_in")
-    #     with self.assertLogs(logger='fairgame', level='INFO') as self.cm:
-    #         self.am.get_page(url="https://"+self.am.amazon_website)
-    #         self.am.handle_startup()
-    #         self.am.login()
-    #         time.sleep(2)
-    #         self.assertTrue(self.am.is_logged_in())
-    #     self.assertIn(
-    #         "INFO:fairgame:Already logged in",
-    #         self.cm.output
-    #     )
+    def test_amazon_logged_in(self):
+        print("[INITIALIZING TEST]: test_amazon_logged_in")
+        with self.assertLogs(logger='fairgame', level='INFO') as self.cm:
+            self.am.get_page(url="https://"+self.am.amazon_website)
+            self.am.handle_startup()
+            self.am.login()
+            time.sleep(2)
+            self.assertTrue(self.am.is_logged_in())
+        self.assertIn(
+            "INFO:fairgame:Already logged in",
+            self.cm.output
+        )
 
-    # def test_save_screenshot(self):
-    #     print("[INITIALIZING TEST]: test_save_screenshot")
-    #     self.am.get_page(url="https://"+self.am.amazon_website)
-    #     self.am.save_screenshot("home_page")
-    #     self.assertEquals(len(os.listdir('./screenshots/')), 1)
+    def test_save_screenshot(self):
+        print("[INITIALIZING TEST]: test_save_screenshot")
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        scrn_before = len(os.listdir('./screenshots/'))
+        self.am.save_screenshot("home_page")
+        self.assertEquals(len(os.listdir('./screenshots/')), scrn_before+1)
 
-    # def test_save_page_source(self):
-    #     self.am.get_page(url="https://"+self.am.amazon_website)
-    #     self.am.save_page_source("home_page")
-    #     self.assertEquals(len(os.listdir('./html_saves/')), 1)
+    def test_save_page_source(self):
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        html_before = len(os.listdir('./html_saves/'))
+        self.am.save_page_source("home_page")
+        self.assertEquals(len(os.listdir('./html_saves/')), html_before+1)
         
     # RUNS IN AN INFINITE LOOP
     # def test_run_asins_empty_asins(self):
         # print("[INITIALIZING TEST]: test_run_asins_empty_asins")
     #     self.am.asin_list = None
     #     self.am.run_asins(delay=1)
+
+    # RUNS IN AN INFINITE LOOP, because use case never going to happen
+    # def test_handle_cart_empty(self):
+    #     self.am.get_page(url="https://smile.amazon.com/gp/cart/view.html?ref_=nav_cart")
+    #     self.am.handle_cart()
 
     def test_items_already_in_cart(self):
         print("[INITIALIZING TEST]: test_items_already_in_cart")
