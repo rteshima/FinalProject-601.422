@@ -361,5 +361,16 @@ class AmazonTestCase(unittest.TestCase):
             self.cm.output
         )
 
+    def test_handle_business_po(self):
+        print("[INITIALIZING TEST]: test_handle_business_po")
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        with self.assertLogs(logger='fairgame', level='DEBUG') as self.cm:
+            self.am.handle_business_po()
+        
+        self.assertIn(
+            "INFO:fairgame:On Business PO Page, Trying to move on to checkout",
+            self.cm.output
+        )
+
 if __name__ == '__main__':
     unittest.main()
