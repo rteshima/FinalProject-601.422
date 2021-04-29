@@ -2,6 +2,7 @@ from stores import amazon
 from notifications import notifications
 import unittest
 import time
+import os, os.path
 
 class AmazonTestCase(unittest.TestCase):
     # setUp function where we'll initialize objects
@@ -35,11 +36,20 @@ class AmazonTestCase(unittest.TestCase):
             self.cm.output
         )
 
+    def test_save_screenshot(self):
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        self.am.save_screenshot("home_page")
+        self.assertEquals(len(os.listdir('./screenshots/')), 1)
+
+    def test_save_page_source(self):
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        self.am.save_page_source("home_page")
+        self.assertEquals(len(os.listdir('./html_saves/')), 1)
+        
     # RUNS IN AN INFINITE LOOP
     # def test_empty_asins(self):
     #     self.am.asin_list = None
     #     self.am.run_asins(delay=1)
 
-    
 if __name__ == '__main__':
     unittest.main()
