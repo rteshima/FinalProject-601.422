@@ -113,7 +113,7 @@ class Amazon:
         wait_on_captcha_fail=False,
     ):
         self.notification_handler = notification_handler
-        self.asin_list = [] # Each ASIN from amazon_config which was json
+        self.asin_list = []
         self.reserve_min = []
         self.reserve_max = []
         self.checkshipping = checkshipping
@@ -180,7 +180,9 @@ class Amazon:
                         "amazon_website", "smile.amazon.com"
                     )
                     for x in range(self.asin_groups):
-                        if float(config[f"reserve_min_{x + 1}"]) > float(config[f"reserve_max_{x + 1}"]):
+                        if float(config[f"reserve_min_{x + 1}"]) > float(
+                            config[f"reserve_max_{x + 1}"]
+                        ):
                             log.error("Minimum price must be <= maximum price")
                             log.error(
                                 f"    {float(config[f'reserve_min_{x + 1}']):.2f} > {float(config[f'reserve_max_{x + 1}']):.2f}"
