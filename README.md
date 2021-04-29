@@ -1,4 +1,5 @@
 # FairGame README
+# This is our Software Testing and Debugging final project
 
 # Table of Contents:
 * [About FairGame](#About-FairGame)
