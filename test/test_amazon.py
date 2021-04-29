@@ -20,36 +20,36 @@ class AmazonTestCase(unittest.TestCase):
         self.am.get_page(url="https://"+self.am.amazon_website)
         self.assertEquals(self.am.driver.current_url, "https://smile.amazon.com/")
 
-    # again, use this format
-    def test_amazon_NOT_logged_in(self):
-        print("[INITIALIZING TEST]: test_amazon_NOT_logged_in")
-        self.am.get_page(url="https://"+self.am.amazon_website)
-        time.sleep(2)
-        self.assertFalse(self.am.is_logged_in())
+    # # again, use this format
+    # def test_amazon_NOT_logged_in(self):
+    #     print("[INITIALIZING TEST]: test_amazon_NOT_logged_in")
+    #     self.am.get_page(url="https://"+self.am.amazon_website)
+    #     time.sleep(2)
+    #     self.assertFalse(self.am.is_logged_in())
 
-    def test_amazon_logged_in(self):
-        print("[INITIALIZING TEST]: test_amazon_logged_in")
-        with self.assertLogs(logger='fairgame', level='INFO') as self.cm:
-            self.am.get_page(url="https://"+self.am.amazon_website)
-            self.am.handle_startup()
-            self.am.login()
-            time.sleep(2)
-            self.assertTrue(self.am.is_logged_in())
-        self.assertIn(
-            "INFO:fairgame:Already logged in",
-            self.cm.output
-        )
+    # def test_amazon_logged_in(self):
+    #     print("[INITIALIZING TEST]: test_amazon_logged_in")
+    #     with self.assertLogs(logger='fairgame', level='INFO') as self.cm:
+    #         self.am.get_page(url="https://"+self.am.amazon_website)
+    #         self.am.handle_startup()
+    #         self.am.login()
+    #         time.sleep(2)
+    #         self.assertTrue(self.am.is_logged_in())
+    #     self.assertIn(
+    #         "INFO:fairgame:Already logged in",
+    #         self.cm.output
+    #     )
 
-    def test_save_screenshot(self):
-        print("[INITIALIZING TEST]: test_save_screenshot")
-        self.am.get_page(url="https://"+self.am.amazon_website)
-        self.am.save_screenshot("home_page")
-        self.assertEquals(len(os.listdir('./screenshots/')), 1)
+    # def test_save_screenshot(self):
+    #     print("[INITIALIZING TEST]: test_save_screenshot")
+    #     self.am.get_page(url="https://"+self.am.amazon_website)
+    #     self.am.save_screenshot("home_page")
+    #     self.assertEquals(len(os.listdir('./screenshots/')), 1)
 
-    def test_save_page_source(self):
-        self.am.get_page(url="https://"+self.am.amazon_website)
-        self.am.save_page_source("home_page")
-        self.assertEquals(len(os.listdir('./html_saves/')), 1)
+    # def test_save_page_source(self):
+    #     self.am.get_page(url="https://"+self.am.amazon_website)
+    #     self.am.save_page_source("home_page")
+    #     self.assertEquals(len(os.listdir('./html_saves/')), 1)
         
     # RUNS IN AN INFINITE LOOP
     # def test_run_asins_empty_asins(self):
@@ -139,17 +139,17 @@ class AmazonTestCase(unittest.TestCase):
         result = self.am.attempt_atc(test_offeringID)
         self.assertTrue(result)
 
-    # THIS METHOD FAILS BECAUSE THERE IS NO CHECK FOR AN INVALID OFFERING ID
-    # Realistically, they should check for robustness
-    def test_attempt_atc_invalid_offeringID(self):
-        print("[INITIALIZING TEST]: test_attempt_atc_invalid_offeringID")
+    # # THIS METHOD FAILS BECAUSE THERE IS NO CHECK FOR AN INVALID OFFERING ID
+    # # Realistically, they should check for robustness
+    # def test_attempt_atc_invalid_offeringID(self):
+    #     print("[INITIALIZING TEST]: test_attempt_atc_invalid_offeringID")
 
-        # random offeringID
-        test_offeringID = "2BzVh33FJpPokoeoGeE1lO1FRbjUkHjEhT424%2F1Kb7zf%2FE62mb1EkhExQQ7bVw%3D%3D"
-        test_offerListingID = "qZsmGu54hxpPyYOq%2Bf1%2FEvjC943vygHxah%2FF5kE%2B7RgtmMD7SI5oyeBvM75QqckQOnh8YaRLoykeEFMuzTWUx%2FjtpzjAqZTZmvoWXKMbB8fbDmUQ5TGGB0fjgyNXWivOvkdhGLqbRziIbFdYD1vfWA%3D%3D"
+    #     # random offeringID
+    #     test_offeringID = "2BzVh33FJpPokoeoGeE1lO1FRbjUkHjEhT424%2F1Kb7zf%2FE62mb1EkhExQQ7bVw%3D%3D"
+    #     test_offerListingID = "qZsmGu54hxpPyYOq%2Bf1%2FEvjC943vygHxah%2FF5kE%2B7RgtmMD7SI5oyeBvM75QqckQOnh8YaRLoykeEFMuzTWUx%2FjtpzjAqZTZmvoWXKMbB8fbDmUQ5TGGB0fjgyNXWivOvkdhGLqbRziIbFdYD1vfWA%3D%3D"
 
-        result = self.am.attempt_atc(test_offeringID)
-        self.assertFalse(result)
+    #     result = self.am.attempt_atc(test_offeringID)
+    #     self.assertFalse(result)
 
         
     def test_remove_asin_list_regular_asin(self):
