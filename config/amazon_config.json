@@ -1,9 +1,9 @@
 {
     "asin_groups": 1,
-      "asin_list_1": [
-        "B07K7NLDGT"
-      ],
-      "reserve_min_1": 450,
-      "reserve_max_1": 1000,
-      "amazon_website": "smile.amazon.com"
-    }
+    "asin_list_1": [
+      "B07K7NLDGT"
+    ],
+    "reserve_min_1": 450,
+    "reserve_max_1": 1000,
+    "amazon_website": "smile.amazon.com"
+}
