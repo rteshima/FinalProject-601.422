@@ -13,6 +13,10 @@ class AmazonTestCase(unittest.TestCase):
     def tearDown(self):
         self.am = None
     
+    def test_get_page(self):
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        self.assertEquals(self.am.driver.current_url, "https://smile.amazon.com/")
+
     # again, use this format
     def test_amazon_NOT_logged_in(self):
         self.am.get_page(url="https://"+self.am.amazon_website)
@@ -26,5 +30,11 @@ class AmazonTestCase(unittest.TestCase):
         time.sleep(2)
         self.assertTrue(self.am.is_logged_in())
 
+    # RUNS IN AN INFINITE LOOP
+    # def test_empty_asins(self):
+    #     self.am.asin_list = None
+    #     self.am.run_asins(delay=1)
+
+    
 if __name__ == '__main__':
     unittest.main()
