@@ -9,5 +9,8 @@ class DiscordPresenceTestCase(unittest.TestCase):
     
     # Follow this format for writing our future test cases
     def test_start_presence(self):
-        self.assertEqual(True, discord.connected)
+        self.assertEqual(False, discord.connected)
         discord.start_presence()
+
+if __name__ == '__main__':
+    unittest.main()
