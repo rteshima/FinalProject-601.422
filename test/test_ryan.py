@@ -53,7 +53,8 @@ class AmazonRyanTestCase(unittest.TestCase):
     #     result = self.am.run_asins(3)
     #     self.assertEquals(expected_asin, result)
 
-    # def test
+
+
 
 if __name__ == '__main__':
     unittest.main()

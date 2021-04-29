@@ -128,6 +128,112 @@ class AmazonTestCase(unittest.TestCase):
         expected_asin = "B07K7NLDGT"
         result = self.am.run_asins(3)
         self.assertEquals(expected_asin, result)
+    
+    def test_attempt_atc_valid_offeringID(self):
+        print("[INITIALIZING TEST]: test_attempt_atc_valid_offeringID")
+
+        # offeringID of a DJI gimbal
+        test_offeringID = "RiIYaL1Mjc6UD55v0XDmYPqHO%2BzVhFJpPokoeoGeE1lO1FRbjUkHjEhT%2FevBwzpOANKChTvZnmKTsNsG5IMXE6sGF5r6fSvHnZXXbejw6udcdeeoV2GAJgufLzLEM%2F1Kb7zf%2FE62mb1EkhExQQ7bVw%3D%3D"
+        test_offerListingID = "qZsmGu54hxpPyYOq%2Bf1%2FEvjC943vygHxah%2FF5kE%2B7RgtmMD7SI5oyeBvM75QqckQOnh8YaRLoykeEFMuzTWUx%2FjtpzjAqZTZmvoWXKMbB8fbDmUQ5TGGB0fjgyNXWivOvkdhGLqbRziIbFdYD1vfWA%3D%3D"
+
+        result = self.am.attempt_atc(test_offeringID)
+        self.assertTrue(result)
+
+    # THIS METHOD FAILS BECAUSE THERE IS NO CHECK FOR AN INVALID OFFERING ID
+    # Realistically, they should check for robustness
+    def test_attempt_atc_invalid_offeringID(self):
+        print("[INITIALIZING TEST]: test_attempt_atc_invalid_offeringID")
+
+        # random offeringID
+        test_offeringID = "2BzVh33FJpPokoeoGeE1lO1FRbjUkHjEhT424%2F1Kb7zf%2FE62mb1EkhExQQ7bVw%3D%3D"
+        test_offerListingID = "qZsmGu54hxpPyYOq%2Bf1%2FEvjC943vygHxah%2FF5kE%2B7RgtmMD7SI5oyeBvM75QqckQOnh8YaRLoykeEFMuzTWUx%2FjtpzjAqZTZmvoWXKMbB8fbDmUQ5TGGB0fjgyNXWivOvkdhGLqbRziIbFdYD1vfWA%3D%3D"
+
+        result = self.am.attempt_atc(test_offeringID)
+        self.assertFalse(result)
+
+        
+    def test_remove_asin_list_regular_asin(self):
+        print("[INITIALIZING TEST]: test_remove_asin_list_regular_asin")
+        asin_to_remove = "B07K7NLDGT"
+        self.am.remove_asin_list(asin_to_remove)
+        self.assertEquals(0, len(self.am.asin_list))
+    
+    def test_remove_asin_list_nonexistent_asin(self):
+        print("[INITIALIZING TEST]: test_remove_asin_list_nonexistent_asin")
+        asin_to_remove = "JDSO9D"
+        self.am.remove_asin_list(asin_to_remove)
+
+        #should equal 1 since nothing removed
+        self.assertEquals(1, len(self.am.asin_list)) 
+    
+
+    def test_handle_unknown_title_random_title(self):
+        print("[INITIALIZING TEST]: test_handle_unknown_title_random_title")
+        test_title = "Johns Hopkins"
+        self.am.handle_unknown_title(test_title)
+        # TODO: stil needs an assert
+        # TODO: RAVINA LOG TEST THIS since there's no return statement
+        # it shoudl take no more than a second lol
+    
+    
+    def test_handle_doggos(self):
+        print("[INITIALIZING TEST]: test_handle_doggos")
+        self.am.handle_doggos()
+        self.assertFalse(self.am.try_to_checkout)
+    
+    def test_handle_out_of_stock(self):
+        print("[INITIALIZING TEST]: test_handle_out_of_stock")
+        self.am.handle_out_of_stock()
+        self.assertFalse(self.am.try_to_checkout)
+    
+    # WILL FAIL BECUASE CAPTCHA DOESNT SHOW UP
+    def test_handle_captcha_pass(self):
+        print("[INITIALIZING TEST]: test_handle_captcha_pass")
+        result = self.am.handle_captcha()
+        self.assertTrue(result)
+    
+    def test_handle_captcha_fail(self):
+        print("[INITIALIZING TEST]: test_handle_captcha_fail")
+        result = self.am.handle_captcha()
+        self.assertFalse(result)
+
+    def test_wait_for_page_content_change(self):
+        print("[INITIALIZING TEST]: test_wait_for_page_content_change")
+        
+        self.am.wait_for_page_content_change()
+
+    def test_send_notification_screenshot(self):
+        print("[INITIALIZING TEST]: test_send_notification_screenshot")
+        self.am.send_notification("Hello, test notif", "testingPage")
+
+    def test_send_notification_no_screenshot(self):
+        print("[INITIALIZING TEST]: test_send_notification_no_screenshot")
+        self.am.send_notification("Hello, test notif", "testingPage", False)
+
+    def test_get_timeout(self):
+        print("[INITIALIZING TEST]: test_get_timeout")
+        expected_after = time.time() + 10
+
+        result = self.am.get_timeout()
+        self.assertGreater(result, expected_after)
+    
+    def test_get_timestamp_filename_dot(self):
+        print("[INITIALIZING TEST]: test_get_timestamp_filename_dot")
+        test_filename = "johns_tests"
+        test_extension = ".txt"
+
+        result = amazon.get_timestamp_filename(test_filename, test_extension)
+        self.assertIn(test_filename, result)
+        self.assertIn(test_extension, result)
+
+    def test_get_timestamp_filename_no_dot(self):
+        print("[INITIALIZING TEST]: test_get_timestamp_filename_no_dot")
+        test_filename = "johns_tests"
+        test_extension = "txt"
+
+        result = amazon.get_timestamp_filename(test_filename, test_extension)
+        self.assertIn(test_filename, result)
+        self.assertIn(test_extension, result)
 
 if __name__ == '__main__':
     unittest.main()
