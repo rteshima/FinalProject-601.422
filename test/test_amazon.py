@@ -380,5 +380,16 @@ class AmazonTestCase(unittest.TestCase):
         self.am.attempt_atc(test_offeringID)
         self.assertEqual(initial_cart+1, self.am.get_cart_count())
 
+    def test_handle_home_page(self):
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        with self.assertLogs(logger='fairgame', level='DEBUG') as self.cm:
+            self.am.handle_home_page()
+
+        
+        self.assertIn(
+            "WARNING:fairgame:On home page, trying to get back to checkout",
+            self.cm.output
+        )
+
 if __name__ == '__main__':
     unittest.main()

@@ -15,14 +15,16 @@ class MockAmazonTestCase(unittest.TestCase):
         self.am = None
 
 
-    def test_cart_count(self):
+    def test_handle_home_page(self):
         self.am.get_page(url="https://"+self.am.amazon_website)
-        initial_cart = self.am.get_cart_count()
-        print(initial_cart)
-        print("[INITIALIZING TEST]: test_cart_count")
-        test_offeringID = "RiIYaL1Mjc6UD55v0XDmYPqHO%2BzVhFJpPokoeoGeE1lO1FRbjUkHjEhT%2FevBwzpOANKChTvZnmKTsNsG5IMXE6sGF5r6fSvHnZXXbejw6udcdeeoV2GAJgufLzLEM%2F1Kb7zf%2FE62mb1EkhExQQ7bVw%3D%3D"
-        self.am.attempt_atc(test_offeringID)
-        self.assertEqual(initial_cart+1, self.am.get_cart_count())
+        with self.assertLogs(logger='fairgame', level='DEBUG') as self.cm:
+            self.am.handle_home_page()
+
+        
+        self.assertIn(
+            "WARNING:fairgame:On home page, trying to get back to checkout",
+            self.cm.output
+        )
 
 
 
