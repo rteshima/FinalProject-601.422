@@ -31,7 +31,19 @@ WARNING: you must wait until the chromedriver window closes on its own and for t
 SO either wait for the chrome window to close, or if the next password thread pops up before the chrome window closes, close the chrome window MANUALLY and then continue on typing your password
 
 
+RESULTS:
+    Through our tests, we wanted to achieve solid code coverage. We were able to achieve a final code coverage 
+after all of our tests is 41%. 
+    As we mentioend in the presentation, much of the reason why it's not possible to attain high coverage is because
+quite a lot of the code is split into try/except blocks, that get triggered by very obscure examples/edge cases 
+that we could not replicate. Another reason is because some of the code is very tightly coupled to the Chrome driver
+framework which made it difficult to reach those parts.
+
 Limitations:
-We weren’t able to invest money into a subscription for an Amazon Prime account, so we made a free test account to work with. Because of this, we had to stop our tests at the enter address screen, as Fairgame is programmed to work with a default address. 
+    We weren’t able to invest money into a subscription for an Amazon Prime account, so we made a free test account to work with. Because of this, we had to stop our tests at the enter address screen, as Fairgame is programmed to work with a default address. 
 For a similar reason, also weren’t able to test any methods that dealt with order 
 Had to input password everytime we ran a test because of password-locked information
+    In terms of testing, we weren't able to exhaustively generate each mutant. The reason is because the speed at which 
+the tests run since each has to open a chrome generator and each pyMut that is generated must be run against each and every
+test case, the resulting amount of computations was way too big for our computational power.
+
