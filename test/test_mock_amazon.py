@@ -15,17 +15,16 @@ class MockAmazonTestCase(unittest.TestCase):
         self.am = None
 
 
-    def test_handle_business_po(self):
-        print("[INITIALIZING TEST]: test_handle_business_po")
+    def test_handle_home_page(self):
         self.am.get_page(url="https://"+self.am.amazon_website)
         with self.assertLogs(logger='fairgame', level='DEBUG') as self.cm:
-            self.am.handle_business_po()
+            self.am.handle_home_page()
+
         
         self.assertIn(
-            "INFO:fairgame:On Business PO Page, Trying to move on to checkout",
+            "WARNING:fairgame:On home page, trying to get back to checkout",
             self.cm.output
         )
-
 
 
 
