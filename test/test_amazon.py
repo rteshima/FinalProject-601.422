@@ -24,11 +24,16 @@ class AmazonTestCase(unittest.TestCase):
         self.assertFalse(self.am.is_logged_in())
 
     def test_amazon_logged_in(self):
-        self.am.get_page(url="https://"+self.am.amazon_website)
-        self.am.handle_startup()
-        self.am.login()
-        time.sleep(2)
-        self.assertTrue(self.am.is_logged_in())
+        with self.assertLogs(logger='fairgame', level='INFO') as self.cm:
+            self.am.get_page(url="https://"+self.am.amazon_website)
+            self.am.handle_startup()
+            self.am.login()
+            time.sleep(2)
+            self.assertTrue(self.am.is_logged_in())
+        self.assertIn(
+            "INFO:fairgame:Already logged in",
+            self.cm.output
+        )
 
     # RUNS IN AN INFINITE LOOP
     # def test_empty_asins(self):
