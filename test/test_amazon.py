@@ -168,12 +168,17 @@ class AmazonTestCase(unittest.TestCase):
     
 
     def test_handle_unknown_title_random_title(self):
-        print("[INITIALIZING TEST]: test_handle_unknown_title_random_title")
-        test_title = "Johns Hopkins"
-        self.am.handle_unknown_title(test_title)
-        # TODO: stil needs an assert
-        # TODO: RAVINA LOG TEST THIS since there's no return statement
-        # it shoudl take no more than a second lol
+        with self.assertLogs(logger='fairgame', level='WARNING') as self.cm:
+            print("[INITIALIZING TEST]: test_handle_unknown_title_random_title")
+            test_title = "Johns Hopkins"
+            self.am.handle_unknown_title(test_title)
+        
+        print(self.cm.output)
+        self.assertIn(
+            "WARNING:fairgame:20...", #asserting countdown is reported to log
+            self.cm.output
+        )
+
     
     
     def test_handle_doggos(self):
@@ -234,6 +239,17 @@ class AmazonTestCase(unittest.TestCase):
         result = amazon.get_timestamp_filename(test_filename, test_extension)
         self.assertIn(test_filename, result)
         self.assertIn(test_extension, result)
+
+    def test_navigate_pages(self):
+        print("testing navigate pages with test = true")
+        self.am.get_page(url="https://"+self.am.amazon_website)
+        with self.assertLogs(logger='fairgame', level='DEBUG') as self.cm:
+            self.am.navigate_pages(True)
+        
+        self.assertIn(
+            "DEBUG:fairgame:'navigate_pages' returned None",
+            self.cm.output
+        )
 
 if __name__ == '__main__':
     unittest.main()
