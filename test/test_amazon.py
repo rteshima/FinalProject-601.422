@@ -47,7 +47,6 @@ class AmazonTestCase(unittest.TestCase):
         self.assertEquals(len(os.listdir('./screenshots/')), 1)
 
     def test_save_page_source(self):
-        print("[INITIALIZING TEST]: test_save_page_source")
         self.am.get_page(url="https://"+self.am.amazon_website)
         self.am.save_page_source("home_page")
         self.assertEquals(len(os.listdir('./html_saves/')), 1)
